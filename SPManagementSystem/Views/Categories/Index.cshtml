@@ -13,6 +13,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -22,13 +23,18 @@
                     <td>@category.Name</td>
                     <td>@category.Description</td>
                     <td><a class="btn btn-link" asp-controller="categories" asp-action="edit" asp-route-id="@category.CategoryId">Edit</a></td>
+                    <td><a class="btn btn-link" asp-controller="categories" asp-action="delete" asp-route-categoryId="@category.CategoryId" onclick="return confirmDelete()">Delete</a></td>
                 </tr>
             }
         </tbody>
     </table>
-    <div class="row mb-3">
-        <div class="col">
-            <a type="button" asp-controller="categories" asp-action="add" class="btn btn-primary">Add</a>
-        </div>
-    </div>
+    <a type="button" asp-controller="categories" asp-action="add" class="btn btn-primary">Add</a>
+}
+
+@section Scripts{
+    <script>
+        function confirmDelete(){
+            return confirm("Are you sure you want to delete this category?");
+        }
+    </script>
 }

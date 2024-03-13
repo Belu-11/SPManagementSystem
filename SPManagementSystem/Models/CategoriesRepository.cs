@@ -53,5 +53,6 @@
                 _categories.Remove(category);
             }
         }
+
     }
 }
