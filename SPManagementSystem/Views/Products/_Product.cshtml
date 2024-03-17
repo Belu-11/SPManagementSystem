@@ -1,0 +1,74 @@
+﻿@model Product
+
+@{
+    string action = ViewBag.Action ?? string.Empty;
+}
+
+<form method="post" asp-controller="products" asp-action="@action">
+    @if (action?.ToLower() == "edit")
+    {
+        <input type="hidden" asp-for="ProductId" />
+    }
+
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="CategoryId" class="col-form-label"></label>
+        </div>
+        <div class="col">
+            <select class="form-select" aria-label="Select Category" asp-for="CategoryId">
+                <option selected value="#">Please Select</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="CategoryId"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Name" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Price" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Price" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Price"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Quantity" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Quantity" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Quantity"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</form>
