@@ -12,22 +12,30 @@ namespace SPManagementSystem.Controllers
             return View(products);
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
             ViewBag.Action = "edit";
-            var product = ProductsRepository.GetProductById(id.HasValue ? id.Value : 0);
-            return View(product);
+
+            var productViewModel = new ProductViewModel
+            {
+                Product = ProductsRepository.GetProductById(id) ?? new Product(),
+                Categories = CategoriesRepository.GetCategories()
+            };
+
+            return View(productViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
-                ProductsRepository.UpdateProduct(product.ProductId, product);
+                ProductsRepository.UpdateProduct(productViewModel.Product.ProductId, productViewModel.Product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            ViewBag.Action = "edit";
+            productViewModel.Categories = CategoriesRepository.GetCategories();
+            return View(productViewModel);
         }
         public IActionResult Add()
         {
@@ -47,13 +55,14 @@ namespace SPManagementSystem.Controllers
                 ProductsRepository.AddProduct(productViewModel.Product);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Action = "add";
             productViewModel.Categories = CategoriesRepository.GetCategories(); 
             return View(productViewModel);
         }
 
-        public IActionResult Delete(int productId)
+        public IActionResult Delete(int id)
         {
-            ProductsRepository.DeleteProduct(productId);
+            ProductsRepository.DeleteProduct(id);
             return RedirectToAction(nameof(Index));
         }
     }

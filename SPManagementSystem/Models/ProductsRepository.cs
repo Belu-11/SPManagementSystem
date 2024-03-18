@@ -12,8 +12,15 @@
 
         public static void AddProduct(Product product)
         {
-            var maxId = _products.Max(x => x.ProductId);
-            product.ProductId = maxId;
+            if (_products != null && _products.Count() > 0)
+            {
+                var maxId = _products.Max(x => x.ProductId);
+                product.ProductId = maxId + 1;
+            } else
+            {
+                product.ProductId = 1;
+            }
+            if (_products == null) _products = new List<Product>();
             _products.Add(product);
         }
 
@@ -55,6 +62,8 @@
                 {
                     prod.Category = CategoriesRepository.GetCategoryById(prod.CategoryId.Value);
                 }
+
+                return prod;
             }
             return null;
         }
@@ -80,6 +89,24 @@
             {
                 _products.Remove(product);
             }
+        }
+
+        public static Product? GetProductByCategoryId(int categoryId)
+        {
+            var product = _products.FirstOrDefault(x => x.CategoryId == categoryId);
+            if (product != null)
+            {
+                var prod = new Product
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    Quantity = product.Quantity,
+                    Price = product.Price,
+                    CategoryId = product.CategoryId,
+                };
+                return prod;
+            }
+            return null;
         }
     }
 }

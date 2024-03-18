@@ -9,10 +9,17 @@
             new Category {CategoryId = 3, Name = "Meat", Description = "Meat"}
         };
 
-        public static void AddCategory(Category category) 
+        public static void AddCategory(Category category)
         {
-            var maxId = _categories.Max(c => c.CategoryId);
-            category.CategoryId = maxId + 1;
+            if (_categories != null && _categories.Count() > 0)
+            {
+                var maxId = _categories.Max(c => c.CategoryId);
+                category.CategoryId = maxId + 1;
+            }else
+            {
+                category.CategoryId = 1;
+            }
+            if (_categories == null) _categories = new List<Category>();
             _categories.Add(category);
         }
 
@@ -21,7 +28,7 @@
         public static Category? GetCategoryById(int categoryId)
         {
             var category = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
-            if (category != null) 
+            if (category != null)
             {
                 return new Category
                 {
@@ -45,13 +52,19 @@
             }
         }
 
-        public static void DeleteCategory(int categoryId)
+        public static int DeleteCategory(int categoryId)
         {
+            var productId = ProductsRepository.GetProductByCategoryId(categoryId);
+
+            if (productId != null) return -1;
+
             var category = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
-            if (category != null) 
+            if (category != null)
             {
                 _categories.Remove(category);
             }
+            return categoryId;
+            
         }
 
     }

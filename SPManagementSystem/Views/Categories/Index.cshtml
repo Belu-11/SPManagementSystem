@@ -28,7 +28,15 @@
             }
         </tbody>
     </table>
-    <a type="button" asp-controller="categories" asp-action="add" class="btn btn-primary">Add</a>
+}
+<br />
+<a type="button" asp-controller="categories" asp-action="add" class="btn btn-primary">Add</a>
+
+@if (ViewData.ModelState.ContainsKey(string.Empty))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(ViewData.ModelState[string.Empty].Errors.FirstOrDefault()?.ErrorMessage)
+    </div>
 }
 
 @section Scripts{

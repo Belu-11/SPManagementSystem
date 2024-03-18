@@ -26,6 +26,7 @@ namespace SPManagementSystem.Controllers
                 CategoriesRepository.UpdateCategory(category.CategoryId, category);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Action = "edit";
             return View(category);
         }
 
@@ -44,12 +45,20 @@ namespace SPManagementSystem.Controllers
                 CategoriesRepository.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Action = "add";
             return View(category);
         }
 
         public IActionResult Delete(int categoryId)
         {
-            CategoriesRepository.DeleteCategory(categoryId);
+            var result = CategoriesRepository.DeleteCategory(categoryId);
+            if (result == -1)
+            {
+                ModelState.AddModelError(string.Empty, "Cannot delete the category because there are products that contain it.");
+                var categories = CategoriesRepository.GetCategories(); // Assuming you have a method to retrieve all categories
+                return View("Index", categories);
+            }
             return RedirectToAction(nameof(Index));
         }
     }
