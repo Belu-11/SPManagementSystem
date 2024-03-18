@@ -52,8 +52,8 @@ namespace SPManagementSystem.Controllers
 
         public IActionResult Delete(int categoryId)
         {
-            var productId = ProductsRepository.GetProductByCategoryId(categoryId);
-            if (productId != null)
+            var products = ProductsRepository.GetProductsByCategoryId(categoryId);
+            if (products != null && products.Count() > 0)
             {
                 ModelState.AddModelError(string.Empty, "Cannot delete the category because there are products that contain it.");
                 var categories = CategoriesRepository.GetCategories(); // Assuming you have a method to retrieve all categories

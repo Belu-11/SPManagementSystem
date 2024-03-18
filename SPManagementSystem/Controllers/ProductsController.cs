@@ -65,5 +65,12 @@ namespace SPManagementSystem.Controllers
             ProductsRepository.DeleteProduct(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ProductByCategoryPartial(int categoryId)
+        {
+            var products = ProductsRepository.GetProductsByCategoryId(categoryId);
+
+            return PartialView("_Products", products);
+        }
     }
 }

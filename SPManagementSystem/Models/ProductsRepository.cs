@@ -91,22 +91,13 @@
             }
         }
 
-        public static Product? GetProductByCategoryId(int categoryId)
+        public static List<Product> GetProductsByCategoryId(int categoryId)
         {
-            var product = _products.FirstOrDefault(x => x.CategoryId == categoryId);
-            if (product != null)
-            {
-                var prod = new Product
-                {
-                    ProductId = product.ProductId,
-                    Name = product.Name,
-                    Quantity = product.Quantity,
-                    Price = product.Price,
-                    CategoryId = product.CategoryId,
-                };
-                return prod;
-            }
-            return null;
+            _products.Where(x => x.CategoryId == categoryId);
+            if (_products != null)
+                return _products.ToList();
+            else
+                return new List<Product>();
         }
     }
 }
