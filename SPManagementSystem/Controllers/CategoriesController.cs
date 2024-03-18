@@ -52,13 +52,15 @@ namespace SPManagementSystem.Controllers
 
         public IActionResult Delete(int categoryId)
         {
-            var result = CategoriesRepository.DeleteCategory(categoryId);
-            if (result == -1)
+            var productId = ProductsRepository.GetProductByCategoryId(categoryId);
+            if (productId != null)
             {
                 ModelState.AddModelError(string.Empty, "Cannot delete the category because there are products that contain it.");
                 var categories = CategoriesRepository.GetCategories(); // Assuming you have a method to retrieve all categories
                 return View("Index", categories);
             }
+
+            CategoriesRepository.DeleteCategory(categoryId);
             return RedirectToAction(nameof(Index));
         }
     }

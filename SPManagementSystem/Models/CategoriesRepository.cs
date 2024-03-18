@@ -52,19 +52,13 @@
             }
         }
 
-        public static int DeleteCategory(int categoryId)
+        public static void DeleteCategory(int categoryId)
         {
-            var productId = ProductsRepository.GetProductByCategoryId(categoryId);
-
-            if (productId != null) return -1;
-
             var category = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
             if (category != null)
             {
                 _categories.Remove(category);
-            }
-            return categoryId;
-            
+            } 
         }
 
     }
