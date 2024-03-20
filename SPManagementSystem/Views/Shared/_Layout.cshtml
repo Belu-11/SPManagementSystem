@@ -21,7 +21,7 @@
                                 <a class="nav-link tex-dark" asp-controller="home" asp-action="index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link tex-dark">Sell</a>
+                                <a class="nav-link tex-dark" asp-controller="sales" asp-action="index">Sell</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link tex-dark" asp-controller="categories" asp-action="index">Categories</a>
@@ -47,6 +47,11 @@
         <div class="container">
             @RenderBody()
         </div>
+
+        <!-- Jquery CDN -->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
 
         @await RenderSectionAsync("Scripts", required: false)
     </body>
