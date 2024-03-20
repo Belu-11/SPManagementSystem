@@ -49,6 +49,16 @@
             $("#SelectedCategoryId").on("change", function () {
                 $("#productsPartial").load("/products/ProductByCategoryPartial", { categoryId: $(this).val() });
             })
+
+            //Handle product selection
+            $("#productsPartial").on("click", ".product-row", function () {
+
+                console.log("product row");
+                // Hightlit the row selected
+                console.log("product row val", $(this));
+                $(".product-row").removeClass('highlight-color');
+                $(this).addClass('highlight-color');
+            });
         });
     </script>
 }
