@@ -1,0 +1,42 @@
+﻿@model Product
+
+@if (Model != null)
+{
+    <div>
+        <div class="row mb-1">
+            <div class="col-2">
+                <label asp-for="Name" class="col-form-label"></label>
+            </div>
+            <div class="col-12">
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div class="col">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-2">
+                <label asp-for="Price" class="col-form-label"></label>
+            </div>
+            <div class="col-12">
+                <input type="number" asp-for="Price" class="form-control" step="any" />
+            </div>
+            <div class="col">
+                <span class="text-danger" asp-validation-for="Price"></span>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-2">
+                <label asp-for="Quantity" class="col-form-label"></label>
+            </div>
+            <div class="col-12">
+                <input type="number" asp-for="Quantity" class="form-control" min="1" />
+            </div>
+            <div class="col">
+                <span class="text-danger" asp-validation-for="Quantity"></span>
+            </div>
+        </div>
+    </div>
+}

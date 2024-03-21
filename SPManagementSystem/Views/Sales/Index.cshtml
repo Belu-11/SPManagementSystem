@@ -31,7 +31,7 @@
         </div>
 
         <br />
-        <div>
+        <div id="productDetailsPartial">
             @*Product's details*@
         </div>
         @*Sales Form *@
@@ -52,12 +52,18 @@
 
             //Handle product selection
             $("#productsPartial").on("click", ".product-row", function () {
-
-                console.log("product row");
                 // Hightlit the row selected
-                console.log("product row val", $(this));
                 $(".product-row").removeClass('highlight-color');
                 $(this).addClass('highlight-color');
+
+                console.log("this val", $(this).find("id"));
+                
+                //var value = $("tr.product-row.highlight-color").attr("product-id");
+                var productId = $(this).attr("product-id");
+                console.log(productId);
+
+                $("#productDetailsPartial").load("/products/ProductDetailsPartial", { productId: productId });
+
             });
         });
     </script>

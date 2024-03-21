@@ -15,8 +15,6 @@ namespace SPManagementSystem.Controllers
 
             return View(salesVewModel);
         }
-
-        
-
     }
 }
+        

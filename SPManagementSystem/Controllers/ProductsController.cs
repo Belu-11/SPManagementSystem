@@ -72,5 +72,12 @@ namespace SPManagementSystem.Controllers
 
             return PartialView("_Products", products);
         }
+
+        public IActionResult ProductDetailsPartial(int productId)
+        {
+            var product = ProductsRepository.GetProductById(productId);
+
+            return PartialView("_ProductDetails", product);
+        }
     }
 }
