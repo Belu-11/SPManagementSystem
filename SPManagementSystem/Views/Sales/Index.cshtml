@@ -48,7 +48,8 @@
             //Handle category selection
             $("#SelectedCategoryId").on("change", function () {
                 $("#productsPartial").load("/products/ProductByCategoryPartial", { categoryId: $(this).val() });
-            })
+                $("#productDetailsPartial").html("");
+            });
 
             //Handle product selection
             $("#productsPartial").on("click", ".product-row", function () {
@@ -62,8 +63,9 @@
                 var productId = $(this).attr("product-id");
                 console.log(productId);
 
-                $("#productDetailsPartial").load("/products/ProductDetailsPartial", { productId: productId });
-
+                // Load prodyct details in a partial view
+                //$("#productDetailsPartial").load("/products/ProductDetailsPartial", { productId: productId });
+                $("#productDetailsPartial").load("/sales/SellProductPartial", { productId: productId });
             });
         });
     </script>
