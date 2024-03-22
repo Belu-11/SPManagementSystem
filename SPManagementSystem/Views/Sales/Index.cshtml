@@ -35,7 +35,17 @@
             @*Product's details*@
         </div>
         @*Sales Form *@
-
+        <form method="post" asp-controller="sales" asp-action="sell" id="formSale">
+            <input asp-for="SelectedProductId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="QuantityToSell"></label>
+                <input class="form-control"  asp-for="QuantityToSell" type="number" min="1"/>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
     </div>
     <div class="col">
         @*List of transactions*@
@@ -45,10 +55,21 @@
 @section Scripts{
     <script>
         $(function () {
+            //Initialize the form
+            $("#formSale").hide();
+            $("#QuantityToSell").val("");
+
+
+            //Load products if category is selected
+            var selectedCategoryId = $("#SelectedCategoryId").val();
+            if (selectedCategoryId > 0) {
+                loadProducts(selectedCategoryId);
+            }
+
+
             //Handle category selection
             $("#SelectedCategoryId").on("change", function () {
-                $("#productsPartial").load("/products/ProductByCategoryPartial", { categoryId: $(this).val() });
-                $("#productDetailsPartial").html("");
+                loadProducts($(this).val())
             });
 
             //Handle product selection
@@ -56,17 +77,33 @@
                 // Hightlit the row selected
                 $(".product-row").removeClass('highlight-color');
                 $(this).addClass('highlight-color');
-
-                console.log("this val", $(this).find("id"));
                 
+                // Hide form when new category is selected
+                $("#formSale").hide();
+
+
                 //var value = $("tr.product-row.highlight-color").attr("product-id");
                 var productId = $(this).attr("product-id");
                 console.log(productId);
 
                 // Load prodyct details in a partial view
-                //$("#productDetailsPartial").load("/products/ProductDetailsPartial", { productId: productId });
+                // $("#productDetailsPartial").load("/products/ProductDetailsPartial", { productId: productId });
                 $("#productDetailsPartial").load("/sales/SellProductPartial", { productId: productId });
+
+                if (productId > 0) {
+                    $("#SelectedProductId").val(productId);
+                    $("#formSale").show();
+                } else {
+                    $("#SelectedProductId").val("");
+                    $("#formSale").hide();
+                }
             });
         });
+
+        function loadProducts(id) {
+            $("#productsPartial").load("/products/ProductByCategoryPartial", { categoryId: id });
+            $("#productDetailsPartial").html("");
+            $("#formSale").hide();
+        }
     </script>
 }
