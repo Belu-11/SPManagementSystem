@@ -13,6 +13,7 @@ namespace SPManagementSystem.ViewModels
 
         [Display(Name = "Quantity")]
         [Range(1, int.MaxValue)]
+        [Validations.SalesViewModel_EnsureProperQuantity]
         public int QuantityToSell { get; set; }
     }
 }
