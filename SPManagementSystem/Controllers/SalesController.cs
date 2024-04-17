@@ -41,7 +41,6 @@ namespace SPManagementSystem.Controllers
                         salesViewModel.QuantityToSell);
                     prod.Quantity -= salesViewModel.QuantityToSell;
                     ProductsRepository.UpdateProduct(salesViewModel.SelectedProductId, prod);
-
                 }
             }
 
