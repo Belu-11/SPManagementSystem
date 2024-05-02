@@ -28,7 +28,7 @@ namespace SPManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // update product qantity
+                // update product quantity
                 var prod = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
                 if(prod != null)
                 {

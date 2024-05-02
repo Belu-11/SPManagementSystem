@@ -12,7 +12,5 @@ namespace SPManagementSystem.Models.ViewComponents
             var transactions = TransactionsReposity.GetByDayCashier(userName, DateTime.Now);
             return View(transactions);
         }
-
-
     }
 }
