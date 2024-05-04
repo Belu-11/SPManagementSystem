@@ -8,17 +8,17 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.CategoriesUseCases
 {
-    public class AddedCategoryUseCase
+    internal class AddCategoryUseCase
     {
         private readonly ICategoryRepository categoryRepository;
 
-        public AddedCategoryUseCase(ICategoryRepository categoryRepository)
+        public AddCategoryUseCase(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
-        public void Execute(int categoryId, Category category)
+        public void Execute(Category category)
         {
-            categoryRepository.UpdateCategory(categoryId, category);
+            categoryRepository.AddCategory(category);
         }
     }
 }
