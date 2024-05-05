@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SPManagementSystem.Models;
+using UseCases.CategoriesUseCases;
 
 namespace SPManagementSystem.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+        }
         public IActionResult Index()
         {
-            var categories = CategoriesRepository.GetCategories();
+            var categories = viewCategoriesUseCase.Execute();
             return View(categories);
         }
 

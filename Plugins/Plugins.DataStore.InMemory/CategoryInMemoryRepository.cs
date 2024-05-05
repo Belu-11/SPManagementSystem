@@ -60,6 +60,5 @@ namespace Plugins.DataStore.InMemory
                 _categories.Remove(category);
             }
         }
-
     }
 }
