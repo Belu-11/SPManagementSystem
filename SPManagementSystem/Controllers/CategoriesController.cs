@@ -7,9 +7,22 @@ namespace SPManagementSystem.Controllers
     public class CategoriesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
-        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase)
+        private readonly IViewSelectedCategoryUseCase viewSelectedCategoryUseCase;
+        private readonly IAddCategoryUseCase addCategoryUseCase;
+        private readonly IEditCategoryUseCase editCategoryUseCase;
+        private readonly IDeleteCategoryUseCase deleteCategoryUseCase;
+        public CategoriesController(
+            IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedCategoryUseCase viewSelectedCategoryUseCase,
+            IAddCategoryUseCase addCategoryUseCase,
+            IEditCategoryUseCase editCategoryUseCase,
+            IDeleteCategoryUseCase deleteCategoryUseCase)
         {
             this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
+            this.addCategoryUseCase = addCategoryUseCase;
+            this.editCategoryUseCase = editCategoryUseCase;
+            this.deleteCategoryUseCase = deleteCategoryUseCase;
         }
         public IActionResult Index()
         {
@@ -20,16 +33,16 @@ namespace SPManagementSystem.Controllers
         public IActionResult Edit(int? id)
         {
             ViewBag.Action = "edit";
-            var category = CategoriesRepository.GetCategoryById(id.HasValue?id.Value:0);
+            var category = viewSelectedCategoryUseCase.Execute(id.HasValue?id.Value:0);
             return View(category);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(CoreBusiness.Category category)
         {
             if(ModelState.IsValid)
             {
-                CategoriesRepository.UpdateCategory(category.CategoryId, category);
+                editCategoryUseCase.Execute(category.CategoryId, category);
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.Action = "edit";
@@ -44,11 +57,11 @@ namespace SPManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Category category)
+        public IActionResult Add(CoreBusiness.Category category)
         {
             if(ModelState.IsValid)
             {
-                CategoriesRepository.AddCategory(category);
+                addCategoryUseCase.Execute(category);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -62,11 +75,11 @@ namespace SPManagementSystem.Controllers
             if (products != null && products.Count() > 0)
             {
                 ModelState.AddModelError(string.Empty, "Cannot delete the category because there are products that contain it.");
-                var categories = CategoriesRepository.GetCategories(); // Assuming you have a method to retrieve all categories
+                var categories = viewCategoriesUseCase.Execute(); // Assuming you have a method to retrieve all categories
                 return View("Index", categories);
             }
 
-            CategoriesRepository.DeleteCategory(categoryId);
+            deleteCategoryUseCase.Execute(categoryId);
             return RedirectToAction(nameof(Index));
         }
     }
