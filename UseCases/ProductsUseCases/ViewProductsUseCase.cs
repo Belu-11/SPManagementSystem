@@ -16,9 +16,9 @@ namespace UseCases.ProductsUseCases
         {
             this.productRepository = productRepository;
         }
-        public IEnumerable<Product> Execute()
+        public IEnumerable<Product> Execute(bool loadCategory = false)
         {
-            return productRepository.GetProducts();
+            return productRepository.GetProducts(loadCategory);
         }
     }
 }

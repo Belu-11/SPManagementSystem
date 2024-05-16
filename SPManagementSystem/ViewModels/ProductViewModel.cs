@@ -4,7 +4,7 @@ namespace SPManagementSystem.ViewModels
 {
     public class ProductViewModel
     {
-        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
-        public Product Product { get; set; } = new Product();
+        public IEnumerable<CoreBusiness.Category> Categories { get; set; } = new List<CoreBusiness.Category>();
+        public CoreBusiness.Product Product { get; set; } = new CoreBusiness.Product();
     }
 }
