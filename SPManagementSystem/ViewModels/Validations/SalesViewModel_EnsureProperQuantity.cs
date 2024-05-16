@@ -1,5 +1,6 @@
 ﻿using SPManagementSystem.Models;
 using System.ComponentModel.DataAnnotations;
+using UseCases.ProductsUseCases;
 
 namespace SPManagementSystem.ViewModels.Validations
 {
@@ -16,11 +17,16 @@ namespace SPManagementSystem.ViewModels.Validations
                 }
                 else
                 {
-                    var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-                    if(product != null)
+                    var getProductByIdUseCase = validationContext.GetService(typeof(IViewSelectedProductUseCase)) as IViewSelectedProductUseCase;
+
+                    if (getProductByIdUseCase != null)
                     {
-                        if (product.Quantity < salesViewModel.QuantityToSell)
-                            return new ValidationResult($"{product.Name} only has {product.Quantity} left");
+                        var product = getProductByIdUseCase.Execute(salesViewModel.SelectedProductId);
+                        if (product != null)
+                        {
+                            if (product.Quantity < salesViewModel.QuantityToSell)
+                                return new ValidationResult($"{product.Name} only has {product.Quantity} left");
+                        }
                     }
                     else
                     {

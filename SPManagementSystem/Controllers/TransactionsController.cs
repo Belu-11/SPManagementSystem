@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SPManagementSystem.Models;
 using SPManagementSystem.ViewModels;
+using UseCases.TransactionsUseCases;
 
 namespace SPManagementSystem.Controllers
 {
     public class TransactionsController : Controller
     {
+        private readonly ISearchTransactionsUseCase searchTransactionsUseCase;
+
+        public TransactionsController(ISearchTransactionsUseCase searchTransactionsUseCase)
+        {
+            this.searchTransactionsUseCase = searchTransactionsUseCase;
+        }
         public IActionResult Index()
         {
             TransactionsViewModel transactionsViewModel = new TransactionsViewModel();
@@ -14,7 +21,7 @@ namespace SPManagementSystem.Controllers
 
         public IActionResult Search(TransactionsViewModel transactionsViewModel)
         {
-            var transactons = TransactionsReposity.Search(
+            var transactons = searchTransactionsUseCase.Execute(
                 transactionsViewModel.CashierName??string.Empty,
                 transactionsViewModel.StartDate,
                 transactionsViewModel.EndDate);

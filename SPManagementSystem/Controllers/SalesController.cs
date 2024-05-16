@@ -1,16 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SPManagementSystem.Models;
 using SPManagementSystem.ViewModels;
+using UseCases.CategoriesUseCases;
+using UseCases.ProductsUseCases;
 
 namespace SPManagementSystem.Controllers
 {
     public class SalesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly ISellProductUseCase sellProductUseCase;
+
+        public SalesController(
+            IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            ISellProductUseCase sellProductUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.sellProductUseCase = sellProductUseCase;
+        }
         public IActionResult Index()
         {
             var salesVewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategories()
+                Categories = viewCategoriesUseCase.Execute()
             };
 
             return View(salesVewModel);
@@ -18,7 +33,7 @@ namespace SPManagementSystem.Controllers
 
         public IActionResult SellProductPartial(int productId)
         {
-            var product = ProductsRepository.GetProductById(productId);
+            var product = viewSelectedProductUseCase.Execute(productId);
             return PartialView("_SellProduct", product);
         }
 
@@ -26,27 +41,30 @@ namespace SPManagementSystem.Controllers
         [HttpPost]
         public IActionResult Sell(SalesViewModel salesViewModel)
         {
+            //foreach (var key in ModelState.Keys)
+            //{
+            //    var errors = ModelState[key].Errors;
+            //    if (errors.Count > 0)
+            //    {
+            //        Console.WriteLine($"Errors for property '{key}':");
+            //        foreach (var error in errors)
+            //        {
+            //            Console.WriteLine($"- {error.ErrorMessage}");
+            //        }
+            //    }
+            //}
+
             if (ModelState.IsValid)
             {
-                // update product quantity
-                var prod = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-                if(prod != null)
-                {
-                    TransactionsReposity.Add(
-                        "Cashier1",
-                        salesViewModel.SelectedProductId,
-                        prod.Name,
-                        prod.Price.HasValue ? prod.Price.Value : 0,
-                        prod.Quantity.HasValue ? prod.Quantity.Value : 0,
-                        salesViewModel.QuantityToSell);
-                    prod.Quantity -= salesViewModel.QuantityToSell;
-                    ProductsRepository.UpdateProduct(salesViewModel.SelectedProductId, prod);
-                }
+                sellProductUseCase.Execute(
+                    "Cashier1",
+                    salesViewModel.SelectedProductId,
+                    salesViewModel.QuantityToSell);
             }
 
-            var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
+            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
             salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
-            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            salesViewModel.Categories = viewCategoriesUseCase.Execute();
             return View("Index", salesViewModel);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using SPManagementSystem.Models;
 using System.ComponentModel.DataAnnotations;
+using UseCases.ProductsUseCases;
 
 namespace SPManagementSystem.ViewModels
 {
@@ -7,7 +8,7 @@ namespace SPManagementSystem.ViewModels
     {
         public int SelectedCategoryId { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
+        public IEnumerable<CoreBusiness.Category> Categories { get; set; } = new List<CoreBusiness.Category>();
 
         public int SelectedProductId { get; set; }
 

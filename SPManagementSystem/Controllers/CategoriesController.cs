@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SPManagementSystem.Models;
 using UseCases.CategoriesUseCases;
+using UseCases.ProductsUseCases;
 
 namespace SPManagementSystem.Controllers
 {
@@ -11,18 +12,22 @@ namespace SPManagementSystem.Controllers
         private readonly IAddCategoryUseCase addCategoryUseCase;
         private readonly IEditCategoryUseCase editCategoryUseCase;
         private readonly IDeleteCategoryUseCase deleteCategoryUseCase;
+        private readonly IViewProductsInCategoryUseCase viewProductsInCategoryUseCase;
+
         public CategoriesController(
             IViewCategoriesUseCase viewCategoriesUseCase,
             IViewSelectedCategoryUseCase viewSelectedCategoryUseCase,
             IAddCategoryUseCase addCategoryUseCase,
             IEditCategoryUseCase editCategoryUseCase,
-            IDeleteCategoryUseCase deleteCategoryUseCase)
+            IDeleteCategoryUseCase deleteCategoryUseCase,
+            IViewProductsInCategoryUseCase viewProductsInCategoryUseCase)
         {
             this.viewCategoriesUseCase = viewCategoriesUseCase;
             this.viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
             this.addCategoryUseCase = addCategoryUseCase;
             this.editCategoryUseCase = editCategoryUseCase;
             this.deleteCategoryUseCase = deleteCategoryUseCase;
+            this.viewProductsInCategoryUseCase = viewProductsInCategoryUseCase;
         }
         public IActionResult Index()
         {
@@ -71,7 +76,7 @@ namespace SPManagementSystem.Controllers
 
         public IActionResult Delete(int categoryId)
         {
-            var products = ProductsRepository.GetProductsByCategoryId(categoryId);
+            var products = viewProductsInCategoryUseCase.Execute(categoryId);
             if (products != null && products.Count() > 0)
             {
                 ModelState.AddModelError(string.Empty, "Cannot delete the category because there are products that contain it.");

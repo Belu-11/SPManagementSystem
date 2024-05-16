@@ -13,6 +13,6 @@ namespace SPManagementSystem.ViewModels
 
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set;} = DateTime.Today;
-        public IEnumerable<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public IEnumerable<CoreBusiness.Transaction> Transactions { get; set; } = new List<CoreBusiness.Transaction>();
     }
 }
