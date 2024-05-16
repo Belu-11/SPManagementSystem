@@ -6,6 +6,11 @@ namespace SPManagementSystem.Controllers
 {
     public class ProductsController : Controller
     {
+
+        public ProductsController()
+        {
+            
+        }
         public IActionResult Index()
         {
             var products = ProductsRepository.GetProducts(loadCategory:true);
