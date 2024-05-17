@@ -1,10 +1,19 @@
+using Microsoft.EntityFrameworkCore;
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQL;
 using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
 using UseCases.TransactionsUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<StoreContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StoreManagement"));
+
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICategoryRepository, CategoryInMemoryRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
