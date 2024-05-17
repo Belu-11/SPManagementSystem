@@ -20,6 +20,7 @@ namespace CoreBusiness
         [Range(0, int.MaxValue)]
         public double? Price { get; set; }
 
+        // Navigation property for EF Core
         public Category? Category { get; set; }
     }
 }

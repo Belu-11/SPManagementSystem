@@ -5,13 +5,15 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPManagementSystem", "SPManagementSystem\SPManagementSystem.csproj", "{1D2B7572-8B6D-44C1-8AF1-A1CD3987B1E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{A5DC1124-4A11-49C1-8322-90316943DF87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{A5DC1124-4A11-49C1-8322-90316943DF87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "UseCases\UseCases.csproj", "{5010F2F4-19DA-498C-ABCB-FEE33607DD2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCases.csproj", "{5010F2F4-19DA-498C-ABCB-FEE33607DD2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{43C76F2C-9086-4DD9-8A8A-8EAA50B0842F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{B61DE39F-98DE-4CA5-AB3B-7A02888846F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{B61DE39F-98DE-4CA5-AB3B-7A02888846F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.SQL", "Plugins\Plugins.DataStore.SQL\Plugins.DataStore.SQL.csproj", "{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{B61DE39F-98DE-4CA5-AB3B-7A02888846F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B61DE39F-98DE-4CA5-AB3B-7A02888846F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B61DE39F-98DE-4CA5-AB3B-7A02888846F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B61DE39F-98DE-4CA5-AB3B-7A02888846F8} = {43C76F2C-9086-4DD9-8A8A-8EAA50B0842F}
+		{2ACB7169-3D35-4AA4-8A73-1C9AFA31FF4D} = {43C76F2C-9086-4DD9-8A8A-8EAA50B0842F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {334EAFD9-6CE6-49B5-AE96-AC54FE1FC402}
