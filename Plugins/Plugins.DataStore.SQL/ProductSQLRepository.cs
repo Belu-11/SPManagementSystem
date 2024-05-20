@@ -9,7 +9,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL
 {
-    internal class ProductSQLRepository : IProductRepository
+    public class ProductSQLRepository : IProductRepository
     {
         private readonly StoreContext db;
 
