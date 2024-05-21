@@ -41,19 +41,6 @@ namespace SPManagementSystem.Controllers
         [HttpPost]
         public IActionResult Sell(SalesViewModel salesViewModel)
         {
-            //foreach (var key in ModelState.Keys)
-            //{
-            //    var errors = ModelState[key].Errors;
-            //    if (errors.Count > 0)
-            //    {
-            //        Console.WriteLine($"Errors for property '{key}':");
-            //        foreach (var error in errors)
-            //        {
-            //            Console.WriteLine($"- {error.ErrorMessage}");
-            //        }
-            //    }
-            //}
-
             if (ModelState.IsValid)
             {
                 sellProductUseCase.Execute(

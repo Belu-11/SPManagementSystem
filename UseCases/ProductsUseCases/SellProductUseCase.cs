@@ -27,7 +27,7 @@ namespace UseCases.ProductsUseCases
             if (product == null) return;
 
             recordTransactionsUseCase.Execute(cashierName, productId, qtyToSell);
-            product.Quantity = qtyToSell;
+            product.Quantity = product.Quantity - qtyToSell;
             productRepository.UpdateProduct(productId, product);
         }
     }

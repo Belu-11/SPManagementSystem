@@ -69,7 +69,7 @@ namespace Plugins.DataStore.SQL
             prod.CategoryId = product.CategoryId;
             prod.Name = product.Name;
             prod.Price = product.Price;
-            prod.Quantity = product.Quantity;
+            prod.Quantity = product.Quantity;   
             db.SaveChanges();
         }
     }
