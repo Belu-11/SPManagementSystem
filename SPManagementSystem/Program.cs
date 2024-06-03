@@ -5,6 +5,8 @@ using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
 using UseCases.TransactionsUseCases;
+using Microsoft.AspNetCore.Identity;
+using SPManagementSystem.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreManagement"));
 
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
 
 builder.Services.AddControllersWithViews();
 if(builder.Environment.IsEnvironment("QA")){
